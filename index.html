@@ -51,7 +51,7 @@
   .container {
     display: flex;
     gap: 36px;
-    padding: 20px 32px 32px;
+    padding: 20px 16px 32px;
     max-width: 1100px;
     width: 100%;
     align-items: flex-start;
@@ -69,15 +69,15 @@
 
   .wheel-wrapper {
     position: relative;
-    width: 420px;
-    height: 420px;
+    width: min(420px, 90vw);
+    height: min(420px, 90vw);
     transition: transform 0s;
     transform-origin: center top;
   }
 
   canvas {
-    width: 420px;
-    height: 420px;
+    width: min(420px, 90vw);
+    height: min(420px, 90vw);
     border-radius: 50%;
     box-shadow: 0 0 40px rgba(139, 92, 246, 0.35), 0 0 80px rgba(139, 92, 246, 0.15);
   }
@@ -1603,8 +1603,10 @@
     if (e.key === 'Enter' && !twitchConnected) connectTwitch();
   });
 
-  const savedChannel = localStorage.getItem('gw_channel');
-  if (savedChannel) channelInput.value = savedChannel;
+  // Preload channel — saved preference wins, otherwise default to jadynviolet
+  channelInput.value = localStorage.getItem('gw_channel') || 'jadynviolet';
+  // Auto-connect on load
+  connectTwitch();
 
   // --- Init ---
   load();
