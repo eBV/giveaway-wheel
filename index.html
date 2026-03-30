@@ -121,6 +121,43 @@
   }
 
   /* ---- Winner Display ---- */
+  /* ---- Giveaway Label ---- */
+  .giveaway-label-wrap {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  #giveawayLabel {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(139, 92, 246, 0.35);
+    color: #e0d4f5;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: inherit;
+    text-align: center;
+    padding: 4px 10px;
+    width: 100%;
+    max-width: 360px;
+    outline: none;
+    transition: border-color 0.2s, color 0.2s;
+    letter-spacing: 0.3px;
+  }
+
+  #giveawayLabel::placeholder {
+    color: #4a3b6b;
+    font-weight: 400;
+  }
+
+  #giveawayLabel:focus {
+    border-color: #a855f7;
+    color: #fff;
+  }
+
+  /* ---- Winner Display ---- */
   #winnerDisplay {
     margin-top: 4px;
     min-height: 52px;
@@ -664,6 +701,9 @@
       <div class="pointer"></div>
       <canvas id="wheelCanvas" width="2520" height="2520"></canvas>
     </div>
+    <div class="giveaway-label-wrap">
+      <input id="giveawayLabel" type="text" maxlength="60" placeholder="What are we spinning for?">
+    </div>
     <button id="spinBtn">SPIN!</button>
     <div id="winnerDisplay"></div>
   </div>
@@ -739,6 +779,7 @@
   const entryListEl = document.getElementById('entryList');
   const winnerDisplay = document.getElementById('winnerDisplay');
   const removeWinnerCheckbox = document.getElementById('removeWinner');
+  const giveawayLabel = document.getElementById('giveawayLabel');
   const panelsContainer = document.getElementById('panelsContainer');
   const toggleAdminBtn = document.getElementById('toggleAdminBtn');
   const entriesPanel = document.getElementById('entriesPanel');
@@ -840,6 +881,7 @@
   function save() {
     localStorage.setItem('gw_entries', JSON.stringify(entries));
     localStorage.setItem('gw_removeWinner', removeWinnerCheckbox.checked);
+    localStorage.setItem('gw_label', giveawayLabel.value);
   }
 
   function load() {
@@ -851,6 +893,7 @@
       }
     } catch { /* ignore */ }
     removeWinnerCheckbox.checked = localStorage.getItem('gw_removeWinner') === 'true';
+    giveawayLabel.value = localStorage.getItem('gw_label') || '';
     adminVisible = localStorage.getItem('gw_adminVisible') !== 'false';
     const savedSpeed = localStorage.getItem('gw_spinSpeed');
     if (savedSpeed && SPIN_DURATIONS[savedSpeed]) {
@@ -998,6 +1041,7 @@
     if (e.key === 'Enter') addEntry();
   });
   removeWinnerCheckbox.addEventListener('change', save);
+  giveawayLabel.addEventListener('input', save);
 
   // ========== CONFETTI ==========
   let confettiPieces = [];
