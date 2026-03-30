@@ -738,7 +738,7 @@
     </div>
 
     <div class="panel" id="twitchPanel">
-      <h2>Twitch Chat (!enter)</h2>
+      <h2>Twitch Chat</h2>
       <div class="twitch-row">
         <input type="text" id="channelInput" placeholder="Your channel name" maxlength="40">
         <button id="twitchConnectBtn">Connect</button>
@@ -746,6 +746,10 @@
       <div class="twitch-status">
         <span class="status-dot off" id="statusDot"></span>
         <span id="statusText">Disconnected</span>
+      </div>
+      <div class="twitch-row" style="margin-bottom:10px;">
+        <input type="text" id="cmd1Input" value="!enter" placeholder="Command 1" maxlength="30" style="font-family:monospace;">
+        <input type="text" id="cmd2Input" placeholder="Command 2 (optional)" maxlength="30" style="font-family:monospace;">
       </div>
       <div class="option-row" style="margin-bottom: 10px;">
         <input type="checkbox" id="preventDupes" checked>
@@ -882,6 +886,8 @@
     localStorage.setItem('gw_entries', JSON.stringify(entries));
     localStorage.setItem('gw_removeWinner', removeWinnerCheckbox.checked);
     localStorage.setItem('gw_label', giveawayLabel.value);
+    localStorage.setItem('gw_cmd1', cmd1Input.value);
+    localStorage.setItem('gw_cmd2', cmd2Input.value);
   }
 
   function load() {
@@ -894,6 +900,8 @@
     } catch { /* ignore */ }
     removeWinnerCheckbox.checked = localStorage.getItem('gw_removeWinner') === 'true';
     giveawayLabel.value = localStorage.getItem('gw_label') || '';
+    cmd1Input.value = localStorage.getItem('gw_cmd1') || '!enter';
+    cmd2Input.value = localStorage.getItem('gw_cmd2') || '';
     adminVisible = localStorage.getItem('gw_adminVisible') !== 'false';
     const savedSpeed = localStorage.getItem('gw_spinSpeed');
     if (savedSpeed && SPIN_DURATIONS[savedSpeed]) {
@@ -1042,6 +1050,8 @@
   });
   removeWinnerCheckbox.addEventListener('change', save);
   giveawayLabel.addEventListener('input', save);
+  cmd1Input.addEventListener('input', save);
+  cmd2Input.addEventListener('input', save);
 
   // ========== CONFETTI ==========
   let confettiPieces = [];
@@ -1520,6 +1530,8 @@
   const statusText = document.getElementById('statusText');
   const preventDupes = document.getElementById('preventDupes');
   const twitchLog = document.getElementById('twitchLog');
+  const cmd1Input = document.getElementById('cmd1Input');
+  const cmd2Input = document.getElementById('cmd2Input');
 
   let ws = null;
   let twitchConnected = false;
@@ -1582,8 +1594,13 @@
           const username = privmsgMatch[1];
           const message = privmsgMatch[2].trim();
 
-          // Match !enter or !enter <color>
-          if (/^!enter(\s|$)/i.test(message)) {
+          // Match cmd1 or cmd2 (both support optional color arg)
+          const cmd1 = cmd1Input.value.trim().toLowerCase();
+          const cmd2 = cmd2Input.value.trim().toLowerCase();
+          const msgLower = message.toLowerCase();
+          const matchedCmd = (cmd1 && (msgLower === cmd1 || msgLower.startsWith(cmd1 + ' ')))
+                          || (cmd2 && (msgLower === cmd2 || msgLower.startsWith(cmd2 + ' ')));
+          if (matchedCmd) {
             const customColor = parseUserColor(message);
 
             // Extract Twitch name color from IRC tags
