@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Background -->
+  <circle cx="50" cy="50" r="50" fill="#1a1a2e"/>
+
+  <!-- 6 wheel segments (r=43, starting from 3-o'clock, clockwise) -->
+  <!-- Points: 0°(93,50) 60°(71.5,87.2) 120°(28.5,87.2) 180°(7,50) 240°(28.5,12.8) 300°(71.5,12.8) -->
+  <path d="M50,50 L93,50 A43,43 0 0,1 71.5,87.2 Z" fill="#7c3aed"/>
+  <path d="M50,50 L71.5,87.2 A43,43 0 0,1 28.5,87.2 Z" fill="#9333ea"/>
+  <path d="M50,50 L28.5,87.2 A43,43 0 0,1 7,50 Z"    fill="#6d28d9"/>
+  <path d="M50,50 L7,50 A43,43 0 0,1 28.5,12.8 Z"    fill="#a855f7"/>
+  <path d="M50,50 L28.5,12.8 A43,43 0 0,1 71.5,12.8 Z" fill="#8b5cf6"/>
+  <path d="M50,50 L71.5,12.8 A43,43 0 0,1 93,50 Z"   fill="#5b21b6"/>
+
+  <!-- Segment dividers -->
+  <line x1="50" y1="50" x2="93"  y2="50"   stroke="rgba(255,255,255,0.12)" stroke-width="1.2"/>
+  <line x1="50" y1="50" x2="71.5" y2="87.2" stroke="rgba(255,255,255,0.12)" stroke-width="1.2"/>
+  <line x1="50" y1="50" x2="28.5" y2="87.2" stroke="rgba(255,255,255,0.12)" stroke-width="1.2"/>
+  <line x1="50" y1="50" x2="7"   y2="50"   stroke="rgba(255,255,255,0.12)" stroke-width="1.2"/>
+  <line x1="50" y1="50" x2="28.5" y2="12.8" stroke="rgba(255,255,255,0.12)" stroke-width="1.2"/>
+  <line x1="50" y1="50" x2="71.5" y2="12.8" stroke="rgba(255,255,255,0.12)" stroke-width="1.2"/>
+
+  <!-- Outer glow ring -->
+  <circle cx="50" cy="50" r="43" fill="none" stroke="rgba(168,85,247,0.35)" stroke-width="2"/>
+
+  <!-- Center hub -->
+  <circle cx="50" cy="50" r="11" fill="#1a1a2e"/>
+  <circle cx="50" cy="50" r="11" fill="none" stroke="#a855f7" stroke-width="2.5"/>
+
+  <!-- Pointer at top -->
+  <polygon points="50,4 44,16 56,16" fill="#c084fc"/>
+  <polygon points="50,4 44,16 56,16" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+</svg>
