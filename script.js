@@ -12,6 +12,7 @@
   const cmd2Input = document.getElementById('cmd2Input');
   const panelsContainer = document.getElementById('panelsContainer');
   const toggleAdminBtn = document.getElementById('toggleAdminBtn');
+  const showControlsFloat = document.getElementById('showControlsFloat');
   const entriesPanel = document.getElementById('entriesPanel');
   const twitchPanel = document.getElementById('twitchPanel');
   const clearAllBtn = document.getElementById('clearAllBtn');
@@ -62,14 +63,19 @@
 
   // --- Admin Toggle ---
   function updateAdminVisibility() {
-    entriesPanel.style.display = adminVisible ? '' : 'none';
-    twitchPanel.style.display = adminVisible ? '' : 'none';
+    panelsContainer.style.display = adminVisible ? '' : 'none';
+    showControlsFloat.style.display = adminVisible ? 'none' : '';
     toggleAdminBtn.textContent = adminVisible ? 'Hide Controls' : 'Show Controls';
     localStorage.setItem('gw_adminVisible', adminVisible);
   }
 
   toggleAdminBtn.addEventListener('click', () => {
     adminVisible = !adminVisible;
+    updateAdminVisibility();
+  });
+
+  showControlsFloat.addEventListener('click', () => {
+    adminVisible = true;
     updateAdminVisibility();
   });
 
