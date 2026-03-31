@@ -1,7 +1,9 @@
-const CACHE = 'giveaway-wheel-v1';
+const CACHE = 'giveaway-wheel-v2';
 const ASSETS = [
   '/',
   '/index.html',
+  '/style.css',
+  '/script.js',
   '/manifest.json',
   '/icon.svg',
   '/apple-touch-icon.png',
