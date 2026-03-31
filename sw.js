@@ -1,4 +1,4 @@
-const CACHE = 'giveaway-wheel-v2';
+const CACHE = 'giveaway-wheel-v3';
 const ASSETS = [
   '/',
   '/index.html',
