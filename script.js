@@ -64,7 +64,7 @@
   // --- Admin Toggle ---
   function updateAdminVisibility() {
     panelsContainer.style.display = adminVisible ? '' : 'none';
-    showControlsFloat.style.display = adminVisible ? 'none' : '';
+    showControlsFloat.textContent = adminVisible ? '⚙ Hide Controls' : '⚙ Show Controls';
     toggleAdminBtn.textContent = adminVisible ? 'Hide Controls' : 'Show Controls';
     localStorage.setItem('gw_adminVisible', adminVisible);
   }

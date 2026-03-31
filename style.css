@@ -370,6 +370,30 @@
     background: rgba(139, 92, 246, 0.3);
   }
 
+  .controls-toggle-wrap {
+    display: flex;
+    justify-content: center;
+    padding: 12px 0 20px;
+  }
+
+  #showControlsFloat {
+    padding: 7px 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-family: inherit;
+    background: rgba(124, 58, 237, 0.25);
+    border: 1px solid rgba(168, 85, 247, 0.35);
+    color: #c084fc;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+
+  #showControlsFloat:hover {
+    background: rgba(139, 92, 246, 0.45);
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+  }
+
   .panels {
     display: flex;
     flex-direction: column;
