@@ -45,6 +45,13 @@ You've been entered into the giveaway! 🎉
 ```
 This gives chat feedback while the wheel page handles the actual entry.
 
+## Fairness
+
+Winner picks use `crypto.getRandomValues()` (the Web Crypto CSPRNG) for the
+spin's total rotation, so the landing slice is chosen with cryptographically
+secure randomness. `Math.random()` is still used for cosmetic effects
+(confetti, tick sounds) but never for deciding a winner.
+
 ## Tech
 
 - Pure HTML / CSS / JavaScript — zero dependencies, zero build step

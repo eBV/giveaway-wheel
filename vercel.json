@@ -1,3 +1,6 @@
 {
-  "alias": ["uvr-wheel.vercel.app"]
+  "alias": [
+    "uvr-wheel.vercel.app",
+    "ohnahji-wheel.vercel.app"
+  ]
 }

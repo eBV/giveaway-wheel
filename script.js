@@ -650,6 +650,16 @@
   initSoundUI();
 
   // --- Spin ---
+  // Fairness: winner picks use cryptographically secure randomness.
+  // Math.random() is a non-seeded PRNG and must never decide giveaway
+  // outcomes; crypto.getRandomValues() is the Web Crypto CSPRNG.
+  // It returns a uniform float in [0, 1), same range as Math.random().
+  function secureRandom() {
+    const buf = new Uint32Array(1);
+    crypto.getRandomValues(buf);
+    return buf[0] / 4294967296; // 2^32
+  }
+
   const wheelWrapper = document.querySelector('.wheel-wrapper');
 
   function resetZoom() {
@@ -668,8 +678,9 @@
     spinTickCount = 0;
 
     const spd = SPIN_DURATIONS[spinSpeed];
-    const totalRotation = Math.PI * 2 * (5 + Math.random() * 5);
-    const duration = spd.base + Math.random() * spd.variance;
+    // Outcome-determining randomness: totalRotation picks the winning slice.
+    const totalRotation = Math.PI * 2 * (5 + secureRandom() * 5);
+    const duration = spd.base + secureRandom() * spd.variance;
     const startAngle = currentAngle;
     const startTime = performance.now();
     const zoomStart = 0.5; // start zooming at halfway through
